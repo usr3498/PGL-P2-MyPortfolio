@@ -1,17 +1,11 @@
 # ud2_t2_usr3498_navegacion
 
-A new Flutter project.
+Proyecto de flutter con al integracion de la pantalla home.
+![alt text](assets/images/Home_page.png)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Luego hemos añadido la navegación.
+![alt text](assets/images/drawer_page.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+y posteriormente hemos integrado la navegacion con las dos pantallas de la tarea ud2 t1.
+![alt text](assets/images/Portfolio_home_page.png) ![alt text](assets/images/Portfolio_qr_page.png)
