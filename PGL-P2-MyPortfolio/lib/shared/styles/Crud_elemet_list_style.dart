@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
 class CrudElemetList extends StatefulWidget {
-  const CrudElemetList({super.key, required this.text, this.width = 360, this.margin = EdgeInsets.zero});
+  const CrudElemetList({
+    super.key,
+    required this.text,
+    this.width = 360,
+    this.margin = EdgeInsets.zero,
+    this.showDelete = false,
+    this.onDelete,
+  });
 
   final String text;
   final double width;
   final EdgeInsetsGeometry margin;
+  final bool showDelete;
+  final VoidCallback? onDelete;
 
   @override
   State<CrudElemetList> createState() => _CrudElemetListState();
@@ -99,11 +108,17 @@ class _CrudElemetListState extends State<CrudElemetList> {
                   Text('Isla - $_island', style: _small),
                 ],
         ),
-        trailing: IconButton(
-          icon: Icon(_editing ? Icons.check_rounded : Icons.chevron_right_rounded),
-          color: _editing ? color : _grey,
-          onPressed: () => setState(() => _editing = !_editing),
-        ),
+        trailing: widget.showDelete
+            ? IconButton(
+                icon: const Icon(Icons.delete_rounded),
+                color: const Color(0xFFE5675C),
+                onPressed: widget.onDelete,
+              )
+            : IconButton(
+                icon: Icon(_editing ? Icons.check_rounded : Icons.chevron_right_rounded),
+                color: _editing ? color : _grey,
+                onPressed: () => setState(() => _editing = !_editing),
+              ),
       ),
     );
   }
