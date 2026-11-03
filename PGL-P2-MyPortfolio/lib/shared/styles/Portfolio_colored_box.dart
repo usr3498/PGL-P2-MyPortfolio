@@ -38,7 +38,7 @@ class MyColoredBox extends StatelessWidget {
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: textColor, // ahora sí usa el parámetro
+            color: textColor,
             fontSize: fontSize,
             decoration: TextDecoration.none,
           ),
