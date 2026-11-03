@@ -57,7 +57,7 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.bookmark, color: AppDrawerDark.textColor),
             title: const Text(
-              'Favorite places',
+              'Sitios favoritos',
               style: TextStyle(color: AppDrawerDark.textColor),
             ),
             onTap: () {

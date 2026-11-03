@@ -25,49 +25,31 @@ class CrudPage extends StatelessWidget {
         backgroundColor: AppPortfolioScreensStyles.background,
         foregroundColor: AppPortfolioScreensStyles.textColor,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              color: AppPortfolioScreensStyles.background,
-              child: SingleChildScrollView(
-                child: Wrap(
-                  spacing: 2,
-                  runSpacing: 8,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Sergio Morales Díaz",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              decoration: TextDecoration.none,
-                              fontSize: 24,
-                              color: AppPortfolioScreensStyles.textColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    ..._placeList.map(
-                      (hobby) => CrudElemetList(
-                        text: hobby,
-                        fontSize: 18,
-                        margin: const EdgeInsets.only(left: 10, top: 10),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                  ],
+      body: Container(
+        width: double.infinity,
+        color: AppPortfolioScreensStyles.background,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            children: [
+              const Text(
+                "Sergio Morales Díaz",
+                style: TextStyle(
+                  fontSize: 24,
+                  color: AppPortfolioScreensStyles.textColor,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
+              const SizedBox(height: 16),
+              ..._placeList.map(
+                (place) => CrudElemetList(
+                  text: place,
+                  margin: const EdgeInsets.only(bottom: 12),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

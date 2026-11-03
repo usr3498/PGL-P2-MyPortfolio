@@ -33,7 +33,7 @@ class homePage extends StatelessWidget {
                       style: TextStyle(
                         decoration: TextDecoration.none,
                         fontSize: 14,
-                        color: AppPortfolioScreensStyles.textColorImg,
+                        color: Color.fromARGB(246, 253, 250, 250),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
