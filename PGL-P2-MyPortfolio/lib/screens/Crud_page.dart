@@ -3,7 +3,8 @@ import 'package:ud2_t2_usr3498_navegacion/models/favourite_place.dart';
 import 'package:ud2_t2_usr3498_navegacion/shared/styles/App_screens_dark.dart';
 import 'package:ud2_t2_usr3498_navegacion/shared/styles/Crud_elemet_list_style.dart';
 import 'package:ud2_t2_usr3498_navegacion/widgets/Drawer.dart';
-import 'package:ud2_t2_usr3498_navegacion/widgets/crud_element_style.dart';
+import 'package:ud2_t2_usr3498_navegacion/widgets/add_elements_crud.dart';
+import 'package:ud2_t2_usr3498_navegacion/widgets/crud_element_list.dart';
 
 class CrudPage extends StatefulWidget {
   const CrudPage({super.key});
@@ -14,30 +15,22 @@ class CrudPage extends StatefulWidget {
 
 class _CrudPageState extends State<CrudPage> {
   final List<FavouritePlace> _places = [
-    FavouritePlace(id: 1, name: "La caldera"),
-    FavouritePlace(id: 2, name: "Bajamar"),
-    FavouritePlace(id: 3, name: "Las mesas"),
-    FavouritePlace(id: 4, name: "Teresitas"),
-    FavouritePlace(id: 5, name: "La salinas"),
-    FavouritePlace(id: 6, name: "Siam Park"),
-    FavouritePlace(id: 7, name: "Las gaviotas"),
-    FavouritePlace(id: 8, name: "Punta de teno"),
+    FavouritePlace(id: 1, name: "La caldera", type: "Caminata", level: "Difícil", island: "La Palma"),
+    FavouritePlace(id: 2, name: "Bajamar", type: "Playa", level: "Fácil", island: "La Palma"),
+    FavouritePlace(id: 3, name: "Las gaviotas" , type: "Playa", level: "Fácil", island: "Tenerife"),
+    FavouritePlace(id: 4, name: "Punta de teno", type: "Lugares interesantes", level: "Intermedio", island: "Tenerife"),
   ];
   int _nextId = 9;
   bool _deleteMode = false;
 
-  void _add() => setState(() {
-        final id = _nextId++;
-        _places.insert(0, FavouritePlace(id: id, name: "Nuevo lugar $id"));
-      });
-
-  void _update(FavouritePlace place, {String? name, String? type, String? level, String? island}) =>
-      setState(() {
-        if (name != null && name.trim().isNotEmpty) place.name = name.trim();
-        if (type != null) place.type = type;
-        if (level != null) place.level = level;
-        if (island != null) place.island = island;
-      });
+  Future<void> _add() async {
+    final place = await AddElementsCrud.show(context, _nextId);
+    if (place == null || !mounted) return;
+    setState(() {
+      _places.insert(0, place);
+      _nextId++;
+    });
+  }
 
   void _delete(int id) => setState(() {
         _places.removeWhere((p) => p.id == id);
@@ -99,7 +92,6 @@ class _CrudPageState extends State<CrudPage> {
                       key: ValueKey(place.id),
                       place: place,
                       showDelete: _deleteMode,
-                      onUpdate: _update,
                       onDelete: () => _delete(place.id),
                     ),
                   );

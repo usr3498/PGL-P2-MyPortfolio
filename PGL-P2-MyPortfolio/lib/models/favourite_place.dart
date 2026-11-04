@@ -8,9 +8,9 @@ class FavouritePlace {
   FavouritePlace({
     required this.id,
     required this.name,
-    this.type = 'Tipo de actividad',
-    this.level = 'Dificultad',
-    this.island = 'Isla',
+    required this.type,
+    required this.level,
+    required this.island,
   });
 }
 
