@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ud2_t2_usr3498_navegacion/models/favourite_place.dart';
 import 'package:ud2_t2_usr3498_navegacion/shared/styles/App_screens_dark.dart';
 import 'package:ud2_t2_usr3498_navegacion/shared/styles/Crud_elemet_list_style.dart';
 import 'package:ud2_t2_usr3498_navegacion/widgets/Drawer.dart';
+import 'package:ud2_t2_usr3498_navegacion/widgets/crud_element_style.dart';
 
 class CrudPage extends StatefulWidget {
   const CrudPage({super.key});
@@ -11,22 +13,30 @@ class CrudPage extends StatefulWidget {
 }
 
 class _CrudPageState extends State<CrudPage> {
-  final List<({int id, String name})> _places = [
-    (id: 1, name: "La caldera"),
-    (id: 2, name: "Bajamar"),
-    (id: 3, name: "Las mesas"),
-    (id: 4, name: "Teresitas"),
-    (id: 5, name: "La salinas"),
-    (id: 6, name: "Siam Park"),
-    (id: 7, name: "Las gaviotas"),
-    (id: 8, name: "Punta de teno"),
+  final List<FavouritePlace> _places = [
+    FavouritePlace(id: 1, name: "La caldera"),
+    FavouritePlace(id: 2, name: "Bajamar"),
+    FavouritePlace(id: 3, name: "Las mesas"),
+    FavouritePlace(id: 4, name: "Teresitas"),
+    FavouritePlace(id: 5, name: "La salinas"),
+    FavouritePlace(id: 6, name: "Siam Park"),
+    FavouritePlace(id: 7, name: "Las gaviotas"),
+    FavouritePlace(id: 8, name: "Punta de teno"),
   ];
   int _nextId = 9;
   bool _deleteMode = false;
 
   void _add() => setState(() {
-        _places.insert(0, (id: _nextId, name: "Nuevo lugar $_nextId"));
-        _nextId++;
+        final id = _nextId++;
+        _places.insert(0, FavouritePlace(id: id, name: "Nuevo lugar $id"));
+      });
+
+  void _update(FavouritePlace place, {String? name, String? type, String? level, String? island}) =>
+      setState(() {
+        if (name != null && name.trim().isNotEmpty) place.name = name.trim();
+        if (type != null) place.type = type;
+        if (level != null) place.level = level;
+        if (island != null) place.island = island;
       });
 
   void _delete(int id) => setState(() {
@@ -36,15 +46,8 @@ class _CrudPageState extends State<CrudPage> {
 
   Widget _pill(String label, VoidCallback onTap) => FilledButton(
         onPressed: onTap,
-        style: FilledButton.styleFrom(
-          backgroundColor: const Color(0xFF2E7D67),
-          foregroundColor: Colors.white,
-          shape: const StadiumBorder(),
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-          minimumSize: Size.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
-        child: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
+        style: CrudElementStyles.pillButton,
+        child: Text(label, style: CrudElementStyles.pillText),
       );
 
   @override
@@ -56,62 +59,54 @@ class _CrudPageState extends State<CrudPage> {
         foregroundColor: AppPortfolioScreensStyles.textColor,
       ),
       body: Container(
-        width: double.infinity,
         color: AppPortfolioScreensStyles.background,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Sergio Morales Díaz",
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: AppPortfolioScreensStyles.textColor,
-                          fontWeight: FontWeight.bold,
+        padding: const EdgeInsets.symmetric(vertical: CrudElementStyles.pagePadding),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: CrudElementStyles.pagePadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Sergio Morales Díaz", style: CrudElementStyles.pageTitle),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: CrudElementStyles.headerSpacing,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text("Nº total de cards: ${_places.length}", style: CrudElementStyles.counter),
+                        _pill("Añadir", _add),
+                        _pill(
+                          _deleteMode ? "Cancelar" : "Eliminar",
+                          () => setState(() => _deleteMode = !_deleteMode),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 10,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text(
-                            "Nº total de cards: ${_places.length}",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: AppPortfolioScreensStyles.textColor,
-                            ),
-                          ),
-                          _pill("Añadir", _add),
-                          _pill(
-                            _deleteMode ? "Cancelar" : "Eliminar",
-                            () => setState(() => _deleteMode = !_deleteMode),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
-              ..._places.map(
-                (place) => CrudElemetList(
-                  key: ValueKey(place.id),
-                  text: place.name,
-                  margin: const EdgeInsets.only(bottom: 12),
-                  showDelete: _deleteMode,
-                  onDelete: () => _delete(place.id),
-                ),
+            ),
+            const SizedBox(height: CrudElementStyles.pagePadding),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _places.length,
+                itemBuilder: (_, i) {
+                  final place = _places[i];
+                  return Center(
+                    child: CrudElemetList(
+                      key: ValueKey(place.id),
+                      place: place,
+                      showDelete: _deleteMode,
+                      onUpdate: _update,
+                      onDelete: () => _delete(place.id),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

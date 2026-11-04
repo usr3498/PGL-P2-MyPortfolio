@@ -1,125 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:ud2_t2_usr3498_navegacion/shared/styles/App_screens_dark.dart';
 
-class CrudElemetList extends StatefulWidget {
-  const CrudElemetList({
-    super.key,
-    required this.text,
-    this.width = 360,
-    this.margin = EdgeInsets.zero,
-    this.showDelete = false,
-    this.onDelete,
-  });
+class CrudElementStyles {
+  // Colores
+  static const grey = Color(0xFFA0AAAF);
+  static const background = Color(0xFF24343A);
+  static const iconBackground = Color(0xFF4A8C78);
+  static const iconColor = Colors.white;
+  static const delete = Color(0xFFE5675C);
+  static const pill = Color(0xFF2E7D67);
 
-  final String text;
-  final double width;
-  final EdgeInsetsGeometry margin;
-  final bool showDelete;
-  final VoidCallback? onDelete;
+  // Estilos de texto
+  static const small = TextStyle(color: grey, fontSize: 13);
+  static const title = TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
+  static const pageTitle = TextStyle(
+    fontSize: 24,
+    color: AppPortfolioScreensStyles.textColor,
+    fontWeight: FontWeight.bold,
+  );
+  static const counter = TextStyle(fontSize: 16, color: AppPortfolioScreensStyles.textColor);
 
-  @override
-  State<CrudElemetList> createState() => _CrudElemetListState();
-}
+  static TextStyle dropdown(Color color) =>
+      TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w600);
+  static TextStyle levelText(Color color) =>
+      TextStyle(color: color, fontWeight: FontWeight.w600);
 
-class _CrudElemetListState extends State<CrudElemetList> {
-  static const _levels = {
-    'Dificultad': Color.fromARGB(255, 236, 238, 237),
-    'Fácil': Color(0xFF6CCB9B),
-    'Intermedio': Color(0xFFF2B94B),
-    'Difícil': Color(0xFFE5675C),
-  };
-  static const _types = [
-    'Tipo de actividad', 'Playa', 'Caminata', 'Miradores', 'Acampadas', 'Tirolinas', 'Rutas coche', 'Lugares interesantes',
-  ];
-  static const _islands = [
-    'Isla', 'Tenerife', 'Gran Canaria', 'Lanzarote', 'Fuerteventura', 'La Palma', 'La Gomera', 'El Hierro',
-  ];
-  static const _grey = Color(0xFFA0AAAF);
-  static const _bg = Color(0xFF24343A);
-  static const _small = TextStyle(color: _grey, fontSize: 13);
-  static const _titleStyle = TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
+  // Proporciones
+  static const double cardWidth = 360;
+  static const double cardRadius = 20;
+  static const double cardSpacing = 12;
+  static const double iconBoxSize = 56;
+  static const double iconBoxRadius = 12;
+  static const double iconSize = 34;
+  static const double headerSpacing = 10;
+  static const double pagePadding = 16;
 
-  late final _name = TextEditingController(text: widget.text);
-  String _type = 'Tipo de actividad';
-  String _level = 'Dificultad';
-  String _island = 'Isla';
-  bool _editing = false;
-
-  @override
-  void dispose() {
-    _name.dispose();
-    super.dispose();
-  }
-
-  Widget _drop(String value, List<String> items, ValueChanged<String> onChanged, [Color color = _grey]) =>
-      DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: value,
-          isDense: true,
-          dropdownColor: _bg,
-          iconEnabledColor: color,
-          style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w600),
-          items: [for (final i in items) DropdownMenuItem(value: i, child: Text(i))],
-          onChanged: (v) => setState(() => onChanged(v!)),
-        ),
-      );
-
-  @override
-  Widget build(BuildContext context) {
-    final color = _levels[_level]!;
-    return Container(
-      width: widget.width,
-      margin: widget.margin,
-      decoration: BoxDecoration(color: _bg, borderRadius: BorderRadius.circular(20)),
-      child: ListTile(
-        isThreeLine: true,
-        leading: Container(
-          width: 56,
-          height: 56,
-          decoration: BoxDecoration(color: const Color(0xFF4A8C78), borderRadius: BorderRadius.circular(12)),
-          child: const Icon(Icons.landscape_rounded, color: Colors.white, size: 34),
-        ),
-        title: _editing
-            ? TextField(
-                controller: _name,
-                style: _titleStyle,
-                cursorColor: Colors.white,
-                decoration: const InputDecoration(isDense: true),
-              )
-            : Text(_name.text, style: _titleStyle),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: _editing
-              ? [
-                  Wrap(crossAxisAlignment: WrapCrossAlignment.center, children: [
-                    _drop(_type, _types, (v) => _type = v),
-                    const Text('  -  ', style: _small),
-                    _drop(_level, _levels.keys.toList(), (v) => _level = v, color),
-                  ]),
-                  Row(children: [
-                    const Text('Isla - ', style: _small),
-                    _drop(_island, _islands, (v) => _island = v),
-                  ]),
-                ]
-              : [
-                  Text.rich(TextSpan(style: _small, children: [
-                    TextSpan(text: '$_type - '),
-                    TextSpan(text: _level, style: TextStyle(color: color, fontWeight: FontWeight.w600)),
-                  ])),
-                  Text('Isla - $_island', style: _small),
-                ],
-        ),
-        trailing: widget.showDelete
-            ? IconButton(
-                icon: const Icon(Icons.delete_rounded),
-                color: const Color(0xFFE5675C),
-                onPressed: widget.onDelete,
-              )
-            : IconButton(
-                icon: Icon(_editing ? Icons.check_rounded : Icons.chevron_right_rounded),
-                color: _editing ? color : _grey,
-                onPressed: () => setState(() => _editing = !_editing),
-              ),
-      ),
-    );
-  }
+  // Botón en forma de píldora
+  static final ButtonStyle pillButton = FilledButton.styleFrom(
+    backgroundColor: pill,
+    foregroundColor: Colors.white,
+    shape: const StadiumBorder(),
+    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+    minimumSize: Size.zero,
+    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  );
+  static const pillText = TextStyle(fontWeight: FontWeight.w600);
 }
