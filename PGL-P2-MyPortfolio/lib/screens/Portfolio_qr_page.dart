@@ -85,7 +85,6 @@ class PortfolioQrPage extends StatelessWidget {
               );
             },
             onSecondPage: () {
-              // Ya estás en la página QR
             },
           ),
         ],
