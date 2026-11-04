@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ud2_t2_usr3498_navegacion/shared/styles/Portfolio_screens_style.dart';
-import 'package:ud2_t2_usr3498_navegacion/shared/styles/Portfolio_colored_box.dart';
+import 'package:ud2_t2_usr3498_navegacion/shared/styles/portfolio_colored_box.dart';
 import 'package:ud2_t2_usr3498_navegacion/widgets/Drawer.dart';
 import 'package:ud2_t2_usr3498_navegacion/screens/portfolio_qr_page.dart';
-import 'package:ud2_t2_usr3498_navegacion/widgets/Header_porfolio.dart';
+import 'package:ud2_t2_usr3498_navegacion/widgets/header_porfolio.dart';
 import 'package:ud2_t2_usr3498_navegacion/widgets/footer_portfolio.dart';
 
 class PortfolioHomePage extends StatelessWidget {
