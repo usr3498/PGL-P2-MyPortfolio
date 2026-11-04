@@ -1,11 +1,8 @@
 class FavouritePlace {
   final int id;
-  String name;
-  String type;
-  String level;
-  String island;
+  final String name, type, level, island;
 
-  FavouritePlace({
+  const FavouritePlace({
     required this.id,
     required this.name,
     required this.type,
@@ -13,11 +10,3 @@ class FavouritePlace {
     required this.island,
   });
 }
-
-typedef PlaceUpdate = void Function(
-  FavouritePlace place, {
-  String? name,
-  String? type,
-  String? level,
-  String? island,
-});

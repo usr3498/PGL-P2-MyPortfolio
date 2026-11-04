@@ -15,10 +15,10 @@ class CrudPage extends StatefulWidget {
 
 class _CrudPageState extends State<CrudPage> {
   final List<FavouritePlace> _places = [
-    FavouritePlace(id: 1, name: "La caldera", type: "Caminata", level: "Difícil", island: "La Palma"),
-    FavouritePlace(id: 2, name: "Bajamar", type: "Playa", level: "Fácil", island: "La Palma"),
-    FavouritePlace(id: 3, name: "Las gaviotas" , type: "Playa", level: "Fácil", island: "Tenerife"),
-    FavouritePlace(id: 4, name: "Punta de teno", type: "Lugares interesantes", level: "Intermedio", island: "Tenerife"),
+    const FavouritePlace(id: 1, name: "La caldera", type: "Caminata", level: "Difícil", island: "La Palma"),
+    const FavouritePlace(id: 2, name: "Bajamar", type: "Playa", level: "Fácil", island: "La Palma"),
+    const FavouritePlace(id: 7, name: "Las gaviotas", type: "Playa", level: "Fácil", island: "Tenerife"),
+    const FavouritePlace(id: 8, name: "Punta de teno", type: "Lugares interesantes", level: "Intermedio", island: "Tenerife"),
   ];
   int _nextId = 9;
   bool _deleteMode = false;
@@ -37,7 +37,7 @@ class _CrudPageState extends State<CrudPage> {
         _deleteMode = false;
       });
 
-  Widget _pill(String label, VoidCallback onTap) => FilledButton(
+  Widget _pillbtn(String label, VoidCallback onTap) => FilledButton(
         onPressed: onTap,
         style: CrudElementStyles.pillButton,
         child: Text(label, style: CrudElementStyles.pillText),
@@ -55,47 +55,40 @@ class _CrudPageState extends State<CrudPage> {
         color: AppPortfolioScreensStyles.background,
         padding: const EdgeInsets.symmetric(vertical: CrudElementStyles.pagePadding),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: CrudElementStyles.pagePadding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Sergio Morales Díaz", style: CrudElementStyles.pageTitle),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: CrudElementStyles.headerSpacing,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        Text("Nº total de cards: ${_places.length}", style: CrudElementStyles.counter),
-                        _pill("Añadir", _add),
-                        _pill(
-                          _deleteMode ? "Cancelar" : "Eliminar",
-                          () => setState(() => _deleteMode = !_deleteMode),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: CrudElementStyles.pagePadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Sergio Morales Díaz", style: CrudElementStyles.pageTitle),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: CrudElementStyles.headerSpacing,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text("Nº total de cards: ${_places.length}", style: CrudElementStyles.counter),
+                      _pillbtn("Añadir", _add),
+                      _pillbtn(_deleteMode ? "Cancelar" : "Eliminar",
+                          () => setState(() => _deleteMode = !_deleteMode)),
+                    ],
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: CrudElementStyles.pagePadding),
             Expanded(
               child: ListView.builder(
                 itemCount: _places.length,
-                itemBuilder: (_, i) {
-                  final place = _places[i];
-                  return Center(
-                    child: CrudElemetList(
-                      key: ValueKey(place.id),
-                      place: place,
-                      showDelete: _deleteMode,
-                      onDelete: () => _delete(place.id),
-                    ),
-                  );
-                },
+                itemBuilder: (_, i) => Center(
+                  child: CrudElemetList(
+                    key: ValueKey(_places[i].id),
+                    place: _places[i],
+                    showDelete: _deleteMode,
+                    onDelete: () => _delete(_places[i].id),
+                  ),
+                ),
               ),
             ),
           ],
