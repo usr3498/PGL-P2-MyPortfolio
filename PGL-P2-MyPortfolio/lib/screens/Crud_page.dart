@@ -31,7 +31,7 @@ class _CrudPageState extends State<CrudPage> {
 
   void _delete(int id) => setState(() {
         _places.removeWhere((p) => p.id == id);
-        _deleteMode = false; // se desactiva tras borrar
+        _deleteMode = false;
       });
 
   Widget _pill(String label, VoidCallback onTap) => FilledButton(
