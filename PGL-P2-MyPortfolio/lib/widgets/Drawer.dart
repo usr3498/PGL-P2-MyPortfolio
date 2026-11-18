@@ -4,7 +4,7 @@ import 'package:ud2_t2_usr3498_navegacion/screens/Portfolio_home_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -32,8 +32,8 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               final navigator = Navigator.of(context);
-              navigator.pop(); // cierra el drawer
-              navigator.popUntil((route) => route.isFirst); // vuelve al home
+              navigator.pop(); 
+              navigator.popUntil((route) => route.isFirst); 
             },
           ),
           ListTile(
@@ -44,8 +44,8 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               final navigator = Navigator.of(context);
-              navigator.pop(); // cierra el drawer
-              navigator.popUntil((route) => route.isFirst); // evita apilar pantallas
+              navigator.pop();
+              navigator.popUntil((route) => route.isFirst); 
               navigator.push(
                 MaterialPageRoute<void>(
                   builder: (_) => const PortfolioHomePage(),
