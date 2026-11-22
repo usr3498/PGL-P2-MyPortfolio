@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ud2_t2_usr3498_navegacion/shared/styles/App_drawer_dark.dart';
 import 'package:ud2_t2_usr3498_navegacion/screens/Portfolio_home_page.dart';
 import 'package:ud2_t2_usr3498_navegacion/screens/Crud_page.dart';
+import 'package:ud2_t2_usr3498_navegacion/shared/session_navigation.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -33,8 +34,8 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               final navigator = Navigator.of(context);
-              navigator.pop(); 
-              navigator.popUntil((route) => route.isFirst); 
+              navigator.pop();
+              navigator.popUntil((route) => route.isFirst);
             },
           ),
           ListTile(
@@ -45,8 +46,8 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               final navigator = Navigator.of(context);
-              navigator.pop(); 
-              navigator.popUntil((route) => route.isFirst); 
+              navigator.pop();
+              navigator.popUntil((route) => route.isFirst);
               navigator.push(
                 MaterialPageRoute<void>(
                   builder: (_) => const PortfolioHomePage(),
@@ -62,13 +63,25 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               final navigator = Navigator.of(context);
-              navigator.pop(); // cierra el drawer
+              navigator.pop();
               navigator.popUntil((route) => route.isFirst);
               navigator.push(
                 MaterialPageRoute<void>(
                   builder: (_) => const CrudPage(),
                 ),
               );
+            },
+          ),
+          const Divider(color: AppDrawerDark.textColor),
+          ListTile(
+            leading: const Icon(Icons.logout, color: AppDrawerDark.textColor),
+            title: const Text(
+              'Cerrar sesión',
+              style: TextStyle(color: AppDrawerDark.textColor),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              logoutAndGoToLogin(context);
             },
           ),
         ],

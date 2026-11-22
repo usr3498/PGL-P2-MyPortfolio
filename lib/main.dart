@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ud2_t2_usr3498_navegacion/screens/home_page.dart';
-import 'package:ud2_t2_usr3498_navegacion/shared/styles/app_screens_dark.dart';
-import 'package:ud2_t2_usr3498_navegacion/widgets/drawer.dart';
+import 'package:ud2_t2_usr3498_navegacion/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,14 +15,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         brightness: Brightness.dark,
       ),
-      home: Scaffold(
-        drawer: const MyDrawer(),
-        appBar: AppBar(
-          backgroundColor: AppPortfolioScreensStyles.background,
-          foregroundColor: AppPortfolioScreensStyles.textColor,
-        ),
-        body: const homePage(),
-      ),
+      home: const LoginScreen(),
     );
   }
 }

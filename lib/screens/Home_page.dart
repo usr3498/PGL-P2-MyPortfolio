@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ud2_t2_usr3498_navegacion/shared/styles/app_screens_dark.dart';
+import 'package:ud2_t2_usr3498_navegacion/shared/styles/App_screens_dark.dart';
+import 'package:ud2_t2_usr3498_navegacion/widgets/welcome_message_button.dart';
 
 class homePage extends StatelessWidget {
   const homePage({super.key});
@@ -63,6 +64,10 @@ class homePage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 30),
+                    child: WelcomeMessageButton(),
                   ),
                 ],
               ),
